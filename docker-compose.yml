@@ -1,0 +1,29 @@
+version: "3.9"
+   
+services:
+  # database
+  timescaledb:
+    build: ./database
+    image: timescale/timescaledb:2.2.0-pg13
+    container_name: timescaledb
+    volumes:
+      - ./database/setup.sql:/docker-entrypoint-initdb.d/1-setup.sql
+      #- ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=sensor_data
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+  # grafana
+  grafana:
+    build: ./dashboard
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    links:
+      - timescaledb
+    volumes:
+      - ./grafana/dashboard:/etc/extra-config/grafana
+    command: ./etc/extra-config/grafana/post.sh
