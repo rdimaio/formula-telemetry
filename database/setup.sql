@@ -5,7 +5,7 @@
 CREATE EXTENSION IF NOT EXISTS timescaledb;
 
 -- Create table
-CREATE TABLE vehicle_data (
+CREATE TABLE IF NOT EXISTS vehicle_data (
   time           TIMESTAMPTZ      NOT NULL,
   speed          DOUBLE PRECISION NULL,
   rpm            DOUBLE PRECISION NULL,

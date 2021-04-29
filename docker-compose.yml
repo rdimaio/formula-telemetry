@@ -10,7 +10,7 @@ services:
       - ./database/setup.sql:/docker-entrypoint-initdb.d/1-setup.sql
       #- ./data/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=sensor_data
+      - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
