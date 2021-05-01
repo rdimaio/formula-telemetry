@@ -26,4 +26,8 @@ services:
       - timescaledb
     volumes:
       - ./grafana/dashboard:/etc/extra-config/grafana
+      - ./dashboard/grafana.ini:/etc/grafana/grafana.ini
+      - ./dashboard/postgres.yml:/etc/grafana/provisioning/datasources/postgres.yml
+      - ./dashboard/main.json:/var/lib/grafana/dashboards/main.json
+      - ./dashboard/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
     command: ./etc/extra-config/grafana/post.sh

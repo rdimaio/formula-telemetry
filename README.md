@@ -6,7 +6,7 @@
 - Open a command-line terminal in the top-level folder of this project
 - Run `docker compose up` (if it doesn't work, try `docker-compose up`; you might be using an older version of the Docker CLI)
 - After setup, Grafana will be running on port 3000 and PostgreSQL will be running on port 5432
-    - Grafana can be accessed at [localhost:3000](localhost:3000)
+    - Grafana can be accessed at [localhost:3000](http://localhost:3000/d/2UjSB19Gz/main-dashboard?orgId=1&from=now-15m&to=now&refresh=5s)
     - PostgreSQL can be accessed at [localhost:5432](localhost:5432)
 
 # FAQ

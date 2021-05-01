@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS vehicle_data (
 );
 
 -- Create hypertable partitioned by `time` column (TimescaleDB)
-SELECT create_hypertable('vehicle_data', 'time');
+SELECT create_hypertable('vehicle_data', 'time', if_not_exists => TRUE);
 
 -- Create user for reading data from Grafana
 CREATE USER grafanareader WITH PASSWORD 'password';
