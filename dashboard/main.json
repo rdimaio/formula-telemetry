@@ -40,26 +40,36 @@
             "mode": "thresholds"
           },
           "mappings": [],
+          "max": 120,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
               },
               {
-                "color": "red",
+                "color": "green",
+                "value": 10
+              },
+              {
+                "color": "#EAB839",
                 "value": 80
+              },
+              {
+                "color": "red",
+                "value": 100
               }
             ]
           },
-          "unit": "short"
+          "unit": "velocitykmh"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 9,
         "x": 0,
         "y": 1
       },
@@ -115,12 +125,124 @@
     },
     {
       "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "from": "-100",
+              "id": 1,
+              "text": "Left",
+              "to": "-1",
+              "type": 2,
+              "value": ""
+            },
+            {
+              "from": "1",
+              "id": 2,
+              "text": "Right",
+              "to": "100",
+              "type": 2
+            },
+            {
+              "from": "",
+              "id": 3,
+              "text": "Center",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            }
+          ],
+          "max": 100,
+          "min": -100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": -95
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 9,
+        "y": 1
+      },
+      "id": 22,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {
+          "titleSize": 1
+        }
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  steering_pos\nFROM vehicle_data\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "steering_pos"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "vehicle_data",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Steering position",
+      "type": "gauge"
+    },
+    {
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
           "mappings": [],
+          "max": 10000,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -130,17 +252,30 @@
               },
               {
                 "color": "red",
-                "value": 80
+                "value": ""
+              },
+              {
+                "color": "green",
+                "value": 200
+              },
+              {
+                "color": "#EAB839",
+                "value": 7500
+              },
+              {
+                "color": "red",
+                "value": 9000
               }
             ]
-          }
+          },
+          "unit": "rotrpm"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
+        "w": 9,
+        "x": 15,
         "y": 1
       },
       "id": 18,
@@ -210,8 +345,11 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "description": "",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "unit": "velocitykmh"
+        },
         "overrides": []
       },
       "fill": 1,
@@ -225,13 +363,16 @@
       "hiddenSeries": false,
       "id": 2,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": false,
+        "max": true,
+        "min": true,
+        "rightSide": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -278,7 +419,35 @@
           ]
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "$$hashKey": "object:1841",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 10,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1847",
+          "colorMode": "warning",
+          "fill": false,
+          "line": true,
+          "op": "gt",
+          "value": 80,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1853",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 100,
+          "yaxis": "left"
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -298,14 +467,16 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": null,
+          "$$hashKey": "object:168",
+          "format": "velocitykmh",
+          "label": "Speed",
           "logBase": 1,
           "max": null,
           "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:169",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -326,7 +497,9 @@
       "dashes": false,
       "datasource": null,
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "unit": "rotrpm"
+        },
         "overrides": []
       },
       "fill": 1,
@@ -340,13 +513,14 @@
       "hiddenSeries": false,
       "id": 4,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -393,7 +567,44 @@
           ]
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "$$hashKey": "object:1271",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 9000,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1277",
+          "colorMode": "warning",
+          "fill": false,
+          "line": true,
+          "op": "gt",
+          "value": 7500,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1283",
+          "colorMode": "warning",
+          "fill": false,
+          "line": true,
+          "op": "lt",
+          "value": 1000,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1289",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 100,
+          "yaxis": "left"
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -413,7 +624,8 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "$$hashKey": "object:315",
+          "format": "rotrpm",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -421,6 +633,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:316",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -441,7 +654,9 @@
       "dashes": false,
       "datasource": null,
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "unit": "pressurepsi"
+        },
         "overrides": []
       },
       "fill": 1,
@@ -455,13 +670,14 @@
       "hiddenSeries": false,
       "id": 8,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -508,7 +724,17 @@
           ]
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "$$hashKey": "object:1553",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 1800,
+          "yaxis": "left"
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -528,14 +754,16 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": null,
+          "$$hashKey": "object:1565",
+          "format": "pressurepsi",
+          "label": "Brake pressure (psi)",
           "logBase": 1,
           "max": null,
           "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:1566",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -570,13 +798,15 @@
       "hiddenSeries": false,
       "id": 10,
       "legend": {
-        "avg": false,
-        "current": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
         "max": false,
         "min": false,
+        "rightSide": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -623,7 +853,26 @@
           ]
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "$$hashKey": "object:2035",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 95,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:2041",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": -95,
+          "yaxis": "left"
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -643,14 +892,16 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:1966",
           "format": "short",
-          "label": null,
+          "label": "Steering position",
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "100",
+          "min": "-100",
           "show": true
         },
         {
+          "$$hashKey": "object:1967",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -780,7 +1031,7 @@
       }
     }
   ],
-  "refresh": "5s",
+  "refresh": false,
   "schemaVersion": 27,
   "style": "dark",
   "tags": [],
@@ -795,5 +1046,5 @@
   "timezone": "",
   "title": "Main dashboard",
   "uid": "2UjSB19Gz",
-  "version": 6
+  "version": 11
 }
