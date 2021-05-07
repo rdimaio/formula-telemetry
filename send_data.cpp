@@ -22,8 +22,8 @@ int main() {
     int LO = -10;
 
     int speedHI = 120;
-    int speedLO = -120;
-    int rpmHI = 10000;
+    int speedLO = -100;
+    int rpmHI = 2000;
     int brake_pressureHI = 2000;
 
     double speed = 120, rpm = 2000, steering_pos = 0, throttle_pos = 15, brake_pressure = 800;
@@ -31,18 +31,22 @@ int main() {
     // Main loop
     while(true) {
         // Generate random data
-        // speed = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(speedHI-LO)));
-        // rpm = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(rpmHI-LO)));
-        // steering_pos = (-100) + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(100-(-100))));
-        // throttle_pos = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)));
-        // brake_pressure = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(brake_pressureHI-LO)));
+        speed = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(speedHI-LO)));
+        rpm = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(rpmHI-LO)));
+        steering_pos = (-100) + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(100-(-100))));
+        throttle_pos = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)));
+        brake_pressure = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(brake_pressureHI-LO)));
+
+        if (speed < 0) {
+            speed = 5;
+        }
 
         // Generate random increment
-        speed = speed + speedLO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(speedHI-speedLO)));
-        rpm = rpm + (-rpmHI) + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(rpmHI-(-rpmHI))));
-        steering_pos = steering_pos + (-100) + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(100-(-100))));
-        throttle_pos = throttle_pos + LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)));
-        brake_pressure = brake_pressure + LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(brake_pressureHI-LO)));
+        //speed = speed + speedLO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(speedHI-speedLO)));
+        //rpm = rpm + (-rpmHI) + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(rpmHI-(-rpmHI))));
+        //steering_pos = steering_pos + (-100) + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(100-(-100))));
+        //throttle_pos = throttle_pos + LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)));
+        //brake_pressure = brake_pressure + LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(brake_pressureHI-LO)));
 
         // Compose string of values to insert into database
         std::string dataline = "(NOW(), " + std::to_string(speed) + ", "
