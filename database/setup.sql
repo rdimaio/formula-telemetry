@@ -1,6 +1,3 @@
--- Create database
--- CREATE DATABASE sensor_data;
-
 -- Extend database with TimescaleDB
 CREATE EXTENSION IF NOT EXISTS timescaledb;
 

@@ -7,8 +7,7 @@ services:
     image: timescale/timescaledb:2.2.0-pg13
     container_name: timescaledb
     volumes:
-      - ./database/setup.sql:/docker-entrypoint-initdb.d/1-setup.sql
-      #- ./data/db:/var/lib/postgresql/data
+      - ./data/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres

@@ -14,6 +14,7 @@ int main() {
 
     // Data comes in in the form of integers with a max value of ~10000.
     // This data is then processed to be in a realistic range (for example, speed=10000 is mapped to speed=120km/h)
+    // This program assumes that this mapping has already been performed.
 
     // Only necessary for random generation purposes
     srand(1);
@@ -37,16 +38,10 @@ int main() {
         throttle_pos = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)));
         brake_pressure = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(brake_pressureHI-LO)));
 
+        // Reset speed to positive if a negative value is generated
         if (speed < 0) {
             speed = 5;
         }
-
-        // Generate random increment
-        //speed = speed + speedLO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(speedHI-speedLO)));
-        //rpm = rpm + (-rpmHI) + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(rpmHI-(-rpmHI))));
-        //steering_pos = steering_pos + (-100) + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(100-(-100))));
-        //throttle_pos = throttle_pos + LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)));
-        //brake_pressure = brake_pressure + LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(brake_pressureHI-LO)));
 
         // Compose string of values to insert into database
         std::string dataline = "(NOW(), " + std::to_string(speed) + ", "
