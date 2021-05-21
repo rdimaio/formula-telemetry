@@ -7,7 +7,7 @@ Docker is used to containerize the system.
 
 ## Requirements
 - Docker
-- Docker Compose (optional, for older Docker versions that do no include the `compose` CLI command)
+- Docker Compose (optional, for older Docker versions that do not include the `compose` CLI command)
 
 ## Usage
 - Open a command-line terminal in the top-level folder of this project
@@ -25,13 +25,7 @@ Solution: limit WSL2 RAM usage via `.wslconfig`. See here for complete instructi
 Solution: Docker is probably not running, check if it's running.
 
 ### PostgreSQL initialization is failing
-There might be some leftover files from previous Docker initializations. Try running this:
-
-1. `docker-compose rm`
-2. `docker-compose build`
-3. `docker-compose up`
-
-Check if initialization is now completed properly. If it fails, attempt to remove volumes with `docker-compose down` and try again.
+There might be some leftover files from previous Docker initializations. Run `docker-compose down` and then `docker-compose up`.
 
 ## Useful links
 This repository contains the code for the remaining components of the telemetry system: https://github.com/rdimaio/can-box
